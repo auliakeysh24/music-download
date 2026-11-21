@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Download Center</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  min-height: 100vh;
+  padding: 35px 16px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 15% 10%, #414d83, transparent 40%),
+    radial-gradient(circle at 90% 90%, #594078, transparent 40%),
+    #10121d;
+}
+
+.container {
+  max-width: 760px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.header h1 {
+  font-size: 29px;
+  letter-spacing: -1px;
+  margin-bottom: 9px;
+}
+
+.header p {
+  color: #bbc2d8;
+  font-size: 14px;
+}
+
+.card {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.15);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 15px 45px rgba(0,0,0,.25);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+th {
+  text-align: left;
+  padding: 14px 10px;
+  color: #aebce5;
+  font-size: 12px;
+  border-bottom: 1px solid #ffffff20;
+}
+
+td {
+  padding: 17px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #ffffff12;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.number {
+  color: #aebce5;
+  width: 40px;
+}
+
+.song {
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+button, .download {
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(135deg,#718cff,#956bff);
+  padding: 10px 13px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  transition: .2s;
+  white-space: nowrap;
+}
+
+button:hover, .download:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px #718cff66;
+}
+
+.status {
+  color: #b9c1d8;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.now-playing {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid #ffffff18;
+  border-radius: 16px;
+}
+
+.now-playing small {
+  color: #aebce5;
+  font-size: 11px;
+}
+
+#currentSong {
+  margin-top: 5px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.progress {
+  width: 100%;
+  margin-top: 13px;
+  accent-color: #9580ff;
+  cursor: pointer;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  color: #aebce5;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.player-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.footer {
+  text-align: center;
+  color: #929bb8;
+  font-size: 12px;
+  margin-top: 22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>♫ Music Download</h1>
+    <p>Download musik favorit kamu dengan mudah</p>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Nama Lagu</th>
+          <th>Preview / Unduh</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td class="number">01</td>
+          <td class="song">Safe in Your Grace</td>
+          <td>
+            <div class="actions">
+              <button onclick="playSong(0)">▶</button>
+              <a class="download" href="safe-in-your-grace.mp3" download>↓</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="number">02</td>
+          <td class="song">Alya yang Ku Cinta</td>
+          <td>
+            <div class="actions">
+              <button onclick="playSong(1)">▶</button>
+              <a class="download" href="alya-yang-ku-cinta.mp3" download>↓</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="number">03</td>
+          <td class="song">Mari Bersholawat</td>
+          <td>
+            <div class="actions">
+              <button onclick="playSong(2)">▶</button>
+              <a class="download" href="mari-bersholawat.mp3" download>↓</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="number">04</td>
+          <td class="song">Senyum Dinda</td>
+          <td>
+            <div class="actions">
+              <button onclick="playSong(3)">▶</button>
+              <a class="download" href="senyum-dinda.mp3" download>↓</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="number">05</td>
+          <td class="song">Untukmu Alena</td>
+          <td>
+            <span class="status">Segera Hadir</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="now-playing">
+      <small>NOW PLAYING</small>
+      <div id="currentSong">Belum ada lagu diputar</div>
+
+      <audio id="audio" preload="none"></audio>
+
+      <input class="progress" type="range"
+        id="progress" value="0" min="0" max="100">
+
+      <div class="time">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+
+      <div class="player-controls">
+        <button id="playPause" onclick="togglePlay()">▶ Play</button>
+        <button onclick="stopSong()">■ Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2026 Music Download Center
+  </div>
+
+</div>
+
+<script>
+const songs = [
+  { name: "Safe in Your Grace", file: "safe-in-your-grace.mp3" },
+  { name: "Alya yang Ku Cinta", file: "alya-yang-ku-cinta.mp3" },
+  { name: "Mari Bersholawat", file: "mari-bersholawat.mp3" },
+  { name: "Senyum Dinda", file: "senyum-dinda.mp3" }
+];
+
+const audio = document.getElementById("audio");
+const currentSong = document.getElementById("currentSong");
+const progress = document.getElementById("progress");
+const playPause = document.getElementById("playPause");
+
+function playSong(index) {
+  const song = songs[index];
+
+  if (audio.src.endsWith(encodeURI(song.file)) && !audio.paused) {
+    audio.pause();
+    return;
+  }
+
+  if (!audio.src.endsWith(encodeURI(song.file))) {
+    audio.src = song.file;
+  }
+
+  currentSong.textContent = song.name;
+
+  audio.play().catch(() => {
+    currentSong.textContent = "File tidak ditemukan atau gagal diputar";
+  });
+}
+
+function togglePlay() {
+  if (!audio.src) return;
+  if (audio.paused) audio.play();
+  else audio.pause();
+}
+
+function stopSong() {
+  audio.pause();
+  audio.currentTime = 0;
+  playPause.textContent = "▶ Play";
+}
+
+audio.addEventListener("play", () => {
+  playPause.textContent = "Ⅱ Pause";
+});
+
+audio.addEventListener("pause", () => {
+  playPause.textContent = "▶ Play";
+});
+
+audio.addEventListener("timeupdate", () => {
+  if (audio.duration) {
+    progress.value = audio.currentTime / audio.duration * 100;
+    document.getElementById("currentTime").textContent =
+      formatTime(audio.currentTime);
+  }
+});
+
+audio.addEventListener("loadedmetadata", () => {
+  document.getElementById("duration").textContent =
+    formatTime(audio.duration);
+});
+
+audio.addEventListener("ended", () => {
+  playPause.textContent = "▶ Play";
+});
+
+progress.addEventListener("input", () => {
+  if (audio.duration) {
+    audio.currentTime = progress.value / 100 * audio.duration;
+  }
+});
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds % 60);
+  return min + ":" + String(sec).padStart(2, "0");
+}
+</script>
+
+</body>
+</html>
