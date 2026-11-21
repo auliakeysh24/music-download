@@ -195,7 +195,9 @@ button:hover, .download:hover {
           <td>
             <div class="actions">
               <button onclick="playSong(0)">▶</button>
-              <a class="download" href="safe-in-your-grace.mp3" download>↓</a>
+              <a class="download"
+                 href="./Safe%20in%20Your%20Grace.mp3"
+                 download="Safe in Your Grace.mp3">↓</a>
             </div>
           </td>
         </tr>
@@ -206,7 +208,9 @@ button:hover, .download:hover {
           <td>
             <div class="actions">
               <button onclick="playSong(1)">▶</button>
-              <a class="download" href="alya-yang-ku-cinta.mp3" download>↓</a>
+              <a class="download"
+                 href="./Alya%20Yang%20Ku%20Cinta.mp3"
+                 download="Alya Yang Ku Cinta.mp3">↓</a>
             </div>
           </td>
         </tr>
@@ -217,7 +221,9 @@ button:hover, .download:hover {
           <td>
             <div class="actions">
               <button onclick="playSong(2)">▶</button>
-              <a class="download" href="mari-bersholawat.mp3" download>↓</a>
+              <a class="download"
+                 href="./Mari%20Bersholawat.mp3"
+                 download="Mari Bersholawat.mp3">↓</a>
             </div>
           </td>
         </tr>
@@ -228,7 +234,9 @@ button:hover, .download:hover {
           <td>
             <div class="actions">
               <button onclick="playSong(3)">▶</button>
-              <a class="download" href="senyum-dinda.mp3" download>↓</a>
+              <a class="download"
+                 href="./Senyum%20Dinda.mp3"
+                 download="Senyum Dinda.mp3">↓</a>
             </div>
           </td>
         </tr>
@@ -272,10 +280,22 @@ button:hover, .download:hover {
 
 <script>
 const songs = [
-  { name: "Safe in Your Grace", file: "safe-in-your-grace.mp3" },
-  { name: "Alya yang Ku Cinta", file: "alya-yang-ku-cinta.mp3" },
-  { name: "Mari Bersholawat", file: "mari-bersholawat.mp3" },
-  { name: "Senyum Dinda", file: "senyum-dinda.mp3" }
+  {
+    name: "Safe in Your Grace",
+    file: "./Safe%20in%20Your%20Grace.mp3"
+  },
+  {
+    name: "Alya yang Ku Cinta",
+    file: "./Alya%20Yang%20Ku%20Cinta.mp3"
+  },
+  {
+    name: "Mari Bersholawat",
+    file: "./Mari%20Bersholawat.mp3"
+  },
+  {
+    name: "Senyum Dinda",
+    file: "./Senyum%20Dinda.mp3"
+  }
 ];
 
 const audio = document.getElementById("audio");
@@ -283,35 +303,48 @@ const currentSong = document.getElementById("currentSong");
 const progress = document.getElementById("progress");
 const playPause = document.getElementById("playPause");
 
+let currentIndex = -1;
+
 function playSong(index) {
   const song = songs[index];
 
-  if (audio.src.endsWith(encodeURI(song.file)) && !audio.paused) {
-    audio.pause();
+  if (currentIndex === index) {
+    togglePlay();
     return;
   }
 
-  if (!audio.src.endsWith(encodeURI(song.file))) {
-    audio.src = song.file;
-  }
+  currentIndex = index;
+  audio.src = song.file;
+  audio.load();
 
   currentSong.textContent = song.name;
+  progress.value = 0;
+  document.getElementById("currentTime").textContent = "0:00";
+  document.getElementById("duration").textContent = "0:00";
 
   audio.play().catch(() => {
-    currentSong.textContent = "File tidak ditemukan atau gagal diputar";
+    currentSong.textContent =
+      "Gagal memutar. Periksa file MP3 di GitHub.";
   });
 }
 
 function togglePlay() {
-  if (!audio.src) return;
-  if (audio.paused) audio.play();
-  else audio.pause();
+  if (currentIndex === -1) return;
+
+  if (audio.paused) {
+    audio.play().catch(() => {
+      currentSong.textContent = "Gagal memutar musik";
+    });
+  } else {
+    audio.pause();
+  }
 }
 
 function stopSong() {
   audio.pause();
   audio.currentTime = 0;
-  playPause.textContent = "▶ Play";
+  progress.value = 0;
+  document.getElementById("currentTime").textContent = "0:00";
 }
 
 audio.addEventListener("play", () => {
@@ -324,7 +357,9 @@ audio.addEventListener("pause", () => {
 
 audio.addEventListener("timeupdate", () => {
   if (audio.duration) {
-    progress.value = audio.currentTime / audio.duration * 100;
+    progress.value =
+      audio.currentTime / audio.duration * 100;
+
     document.getElementById("currentTime").textContent =
       formatTime(audio.currentTime);
   }
@@ -339,16 +374,24 @@ audio.addEventListener("ended", () => {
   playPause.textContent = "▶ Play";
 });
 
+audio.addEventListener("error", () => {
+  currentSong.textContent =
+    "File MP3 tidak ditemukan atau gagal dimuat";
+});
+
 progress.addEventListener("input", () => {
   if (audio.duration) {
-    audio.currentTime = progress.value / 100 * audio.duration;
+    audio.currentTime =
+      progress.value / 100 * audio.duration;
   }
 });
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return "0:00";
+
   const min = Math.floor(seconds / 60);
   const sec = Math.floor(seconds % 60);
+
   return min + ":" + String(sec).padStart(2, "0");
 }
 </script>
