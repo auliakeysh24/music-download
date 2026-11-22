@@ -29,6 +29,7 @@ body {
 }
 
 .container {
+  width: 100%;
   max-width: 760px;
   margin: auto;
 }
@@ -50,6 +51,7 @@ body {
 }
 
 .card {
+  width: 100%;
   background: rgba(255,255,255,.08);
   border: 1px solid rgba(255,255,255,.15);
   backdrop-filter: blur(25px);
@@ -171,40 +173,75 @@ button:hover, .download:hover {
   margin-top: 22px;
 }
 
-/* TAMPILAN DESKTOP */
-@media screen and (min-width: 768px) {
+/* RESPONSIVE DESKTOP */
+@media screen and (min-width: 601px) {
   body {
-    padding: 55px 30px;
+    padding: clamp(12px, 3vw, 35px);
   }
 
   .container {
-    max-width: 1000px;
+    width: min(100%, 760px);
+  }
+
+  .header {
+    margin-bottom: clamp(14px, 2vw, 28px);
   }
 
   .header h1 {
-    font-size: 38px;
+    font-size: clamp(20px, 3vw, 29px);
   }
 
   .header p {
-    font-size: 16px;
+    font-size: clamp(11px, 1.5vw, 14px);
   }
 
   .card {
-    padding: 30px;
+    padding: clamp(10px, 2vw, 20px);
+  }
+
+  table {
+    min-width: 0;
+    table-layout: fixed;
   }
 
   th {
-    padding: 17px 14px;
-    font-size: 13px;
+    font-size: clamp(9px, 1.2vw, 12px);
+    padding: clamp(7px, 1.3vw, 14px) clamp(5px, 1vw, 10px);
   }
 
   td {
-    padding: 21px 14px;
-    font-size: 15px;
+    font-size: clamp(10px, 1.4vw, 14px);
+    padding: clamp(8px, 1.5vw, 17px) clamp(5px, 1vw, 10px);
+  }
+
+  .number {
+    width: 9%;
+  }
+
+  .actions {
+    gap: clamp(4px, .8vw, 7px);
+  }
+
+  button, .download {
+    font-size: clamp(9px, 1.2vw, 12px);
+    padding: clamp(6px, 1vw, 10px) clamp(7px, 1.3vw, 13px);
+  }
+
+  .status {
+    font-size: clamp(9px, 1.1vw, 11px);
+  }
+
+  .now-playing {
+    margin-top: clamp(12px, 2vw, 20px);
+    padding: clamp(10px, 1.5vw, 15px);
+  }
+
+  #currentSong {
+    font-size: clamp(11px, 1.5vw, 14px);
   }
 }
 
-/* TAMPILAN MOBILE */
+/* MOBILE */
 @media (max-width: 600px) {
   body {
     background-attachment: scroll;
